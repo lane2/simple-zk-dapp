@@ -1,0 +1,27 @@
+[
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "block",
+          "type": "uint256"
+        }
+      ],
+      "name": "TxConfirmed",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "log",
+      "outputs": [],
+      "stateMutability": "payable",
+      "type": "function"
+    }
+  ]
