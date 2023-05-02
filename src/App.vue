@@ -184,7 +184,7 @@ export default {
           value: "0"
         }
       },
-      mainLoading: false,
+      mainLoading: true,
       provider: null,
       signer: null,
       // 0 stands for no status, i.e no tx has been sent
