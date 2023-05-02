@@ -1,5 +1,8 @@
 <template>
   <div id="app" v-if="!mainLoading">
+     <div class="heaeder">
+        <img class="header-img" src="../asset/zk.png" />
+      </div>
     <h1>Wish you lucky!</h1>
     <div>
       This a simple zksync era dApp, there are 3 contracts you can try.
@@ -17,16 +20,41 @@
       <div class="balance">
         <!-- add one button, after click it will refresh the fee for interacting with three contracts-->
         <p>
-          Your balance: <span v-if="retreivingBalance">Loading...</span> <span v-else>{{ currentBalance }} ETH</span>
+          Your balance: 
+          <span v-if="retreivingBalance">Loading...</span> 
+          <span v-else>{{ currentBalance }} ETH</span>
+          <a-button class="refresh-button" type="primary" v-on:click="estimateFee">Estimate Fee</a-button>
+          <!--
           <button class="refresh-button" v-on:click="estimateFee">Estimate Fee</button>
+          -->
         </p>
 
-        <p>
-          Expected fee for pingpong: <span v-if="retrievingFee">Loading...</span> <span v-else>{{
+         <p>
+          Expected fee for pingpong: 
+          <span v-if="retrievingFee">Loading...</span> 
+          <span v-else>{{
             contractArray['pingpong'].fee }} ETH</span>
             <!-- add one textbox to receive input value as ether-->
-          <span><input type="text" class="value-input"  v-model="contractArray['pingpong'].value" placeholder="0.001" />ETH</span>
-          <button class="refresh-button" :disabled='txStatus != 0 || !feeRetrieved' v-on:click="interactContract('pingpong')">Interact with PingPong</button>
+          <span>
+          <!-- <input type="text" class="value-input" 
+           v-model="contractArray['pingpong'].value" placeholder="0.001" />
+           -->
+           
+          <a-input style="width:100px"
+            class="value-input" 
+            id="inputNumber" 
+            v-model="contractArray['pingpong'].value" placeholder="0.001" />
+            ETH
+           </span>
+          <!--  <button class="refresh-button" 
+            :disabled='txStatus != 0 || !feeRetrieved' 
+            v-on:click="interactContract('pingpong')">
+              Interact with PingPong
+            </button>
+            -->
+
+          <a-button class="refresh-button" type="primary" :disabled='txStatus != 0 || !feeRetrieved' 
+          v-on:click="interactContract('pingpong')">Interact with PingPong</a-button>
         </p>
       </div>
 
@@ -35,14 +63,33 @@
           Expected fee for logger: <span v-if="retrievingFee">Loading...</span> <span v-else>{{ contractArray['logger'].fee
           }} ETH</span>
           <!-- disable button when retrievingFee is true -->
-          <button class="refresh-button" :disabled='txStatus != 0 || !feeRetrieved' v-on:click="interactContract('logger')">Interact with Logger</button>
+          <!-- 
+          <button class="refresh-button" 
+          :disabled='txStatus != 0 || !feeRetrieved' 
+          v-on:click="interactContract('logger')">
+            Interact with Logger
+          </button>
+          -->
+          <a-button class="refresh-button" type="primary" :disabled='txStatus != 0 || !feeRetrieved' 
+          v-on:click="interactContract('logger')" 
+          >Interact with Logger</a-button>
         </p>
       </div>
       <div class="balance">
         <p>
           Expected fee for counter: <span v-if="retrievingFee">Loading...</span> <span v-else>{{ contractArray['counter'].fee
           }} ETH</span>
-          <button class="refresh-button" :disabled='txStatus != 0 || !feeRetrieved' v-on:click="interactContract('counter')">Interact with Counter</button>
+          <!-- 
+          <button class="refresh-button" 
+          :disabled='txStatus != 0 || !feeRetrieved' 
+          v-on:click="interactContract('counter')">
+          Interact with Counter
+          </button>
+          -->
+          <a-button class="refresh-button" type="primary" 
+          :disabled='txStatus != 0 || !feeRetrieved' 
+          v-on:click="interactContract('counter')" 
+          >Interact with Counter</a-button>
         </p>
       </div>
       <div class="greeting-input">
@@ -60,8 +107,13 @@
   </div>
   <div id="app" v-else>
     <div class="start-screen">
+      <div class="heaeder">
+        <img class="header-img" src="../asset/zk.png" />
+      </div>
       <h1>Welcome to zksync era simple DApp!</h1>
-      <button v-on:click="connectMetamask">Connect Metamask</button>
+
+      <a-button type="primary" size="large" v-on:click="connectMetamask">Connect Metamask</a-button>
+
     </div>
   </div>
 </template>
@@ -132,7 +184,7 @@ export default {
           value: "0"
         }
       },
-      mainLoading: true,
+      mainLoading: false,
       provider: null,
       signer: null,
       // 0 stands for no status, i.e no tx has been sent
@@ -249,7 +301,7 @@ export default {
         alert("Follow the tutorial to learn how to connect to Metamask!");
         return;
       }
-      this.mainLoading = false;
+      this.mainLoading = true;
       this.updateBalance();
     },
     connectMetamask() {
@@ -275,7 +327,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 30px;
 }
 
 #app ul {
@@ -298,8 +349,24 @@ export default {
   margin-left: 20px;
 }
 
+.heaeder {
+    height: 200px;
+    width: 100%;
+    background: #1d2039;
+    position: relative;
+    overflow: hidden;
+}
+h1 {
+  margin-top:60px;
+}
+.header-img {
+    position: absolute;
+    left: 50%;
+    margin-left: -700px;
+    top: -274px;
+    z-index: 1;
+}
 .start-screen {
-  margin-top: 100px;
 }
 
 .balance {
