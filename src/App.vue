@@ -286,7 +286,7 @@ export default {
         alert("Follow the tutorial to learn how to connect to Metamask!");
         return;
       }
-      this.mainLoading = true;
+      this.mainLoading = false;
       this.updateBalance();
     },
     connectMetamask() {
