@@ -21,73 +21,58 @@
         <!-- add one button, after click it will refresh the fee for interacting with three contracts-->
         <p>
           Your balance: 
+        </p>
+        <p>
           <span v-if="retreivingBalance">Loading...</span> 
           <span v-else>{{ currentBalance }} ETH</span>
-          <a-button class="refresh-button" type="primary" v-on:click="estimateFee">Estimate Fee</a-button>
-          <!--
-          <button class="refresh-button" v-on:click="estimateFee">Estimate Fee</button>
-          -->
+          <a-button type="primary" class="refresh-button"  v-on:click="estimateFee">Estimate Fee</a-button>
         </p>
-
-         <p>
+        <a-divider dashed />
+        <p>
           Expected fee for pingpong: 
+        </p>
+        <p>
           <span v-if="retrievingFee">Loading...</span> 
           <span v-else>{{
             contractArray['pingpong'].fee }} ETH</span>
             <!-- add one textbox to receive input value as ether-->
           <span>
-          <!-- <input type="text" class="value-input" 
-           v-model="contractArray['pingpong'].value" placeholder="0.001" />
-           -->
            
-          <a-input style="width:100px"
-            class="value-input" 
+          <a-input style="width:100px;margin-bottom: 1em;"
+            class="value-input refresh-button" 
             id="inputNumber" 
             v-model="contractArray['pingpong'].value" placeholder="0.001" />
             ETH
            </span>
-          <!--  <button class="refresh-button" 
-            :disabled='txStatus != 0 || !feeRetrieved' 
-            v-on:click="interactContract('pingpong')">
-              Interact with PingPong
-            </button>
-            -->
 
-          <a-button class="refresh-button" type="primary" :disabled='txStatus != 0 || !feeRetrieved' 
+          <a-button type="primary" :disabled='txStatus != 0 || !feeRetrieved' 
           v-on:click="interactContract('pingpong')">Interact with PingPong</a-button>
         </p>
-      </div>
 
+      </div>
+       <a-divider dashed />
       <div class="balance">
         <p>
-          Expected fee for logger: <span v-if="retrievingFee">Loading...</span> <span v-else>{{ contractArray['logger'].fee
+          Expected fee for logger:
+        </p>
+        <p> <span v-if="retrievingFee">Loading...</span> <span v-else>{{ contractArray['logger'].fee
           }} ETH</span>
           <!-- disable button when retrievingFee is true -->
-          <!-- 
-          <button class="refresh-button" 
-          :disabled='txStatus != 0 || !feeRetrieved' 
-          v-on:click="interactContract('logger')">
-            Interact with Logger
-          </button>
-          -->
-          <a-button class="refresh-button" type="primary" :disabled='txStatus != 0 || !feeRetrieved' 
-          v-on:click="interactContract('logger')" 
+          <a-button type="primary" :disabled='txStatus != 0 || !feeRetrieved' 
+          v-on:click="interactContract('logger')"  class="refresh-button"
           >Interact with Logger</a-button>
         </p>
       </div>
+       <a-divider dashed />
       <div class="balance">
         <p>
-          Expected fee for counter: <span v-if="retrievingFee">Loading...</span> <span v-else>{{ contractArray['counter'].fee
+          Expected fee for counter: 
+        </p>
+        <p>
+          <span v-if="retrievingFee">Loading...</span> <span v-else>{{ contractArray['counter'].fee
           }} ETH</span>
-          <!-- 
-          <button class="refresh-button" 
-          :disabled='txStatus != 0 || !feeRetrieved' 
-          v-on:click="interactContract('counter')">
-          Interact with Counter
-          </button>
-          -->
-          <a-button class="refresh-button" type="primary" 
-          :disabled='txStatus != 0 || !feeRetrieved' 
+          <a-button  type="primary" 
+          :disabled='txStatus != 0 || !feeRetrieved' class="refresh-button"
           v-on:click="interactContract('counter')" 
           >Interact with Counter</a-button>
         </p>
@@ -184,7 +169,7 @@ export default {
           value: "0"
         }
       },
-      mainLoading: true,
+      mainLoading: false,
       provider: null,
       signer: null,
       // 0 stands for no status, i.e no tx has been sent
@@ -335,7 +320,7 @@ export default {
 
 .main-box {
   text-align: left;
-  width: 600px;
+  width: 370px;
 
   margin: auto;
   margin-top: 40px;
